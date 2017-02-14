@@ -872,9 +872,14 @@ class _WisdomBankSingleton(dict):
         if len(self) > self.maxEntries:
             # Remove a 10% of random elements from the cache
             entries_to_remove = self.maxEntries // 10
-            for cull in self.keys()[:entries_to_remove]:
-                super(_WisdomBankSingleton, self).__delitem__(cull)
-                #self.__dict__.__delitem__(cull)
+            # This code doesn't work in Python 3.
+            keysView = list(self.keys())
+            for I, cull in enumerate(keysView):
+                # super(_WisdomBankSingleton, self).__delitem__(cull)
+                self.pop(cull)
+                if I >= entries_to_remove: 
+                    break
+                
         #self.__dict__[key] = value
         super(_WisdomBankSingleton, self).__setitem__(key, value)
          
