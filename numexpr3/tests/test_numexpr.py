@@ -341,6 +341,7 @@ class test_evaluate(TestCase):
             c.real = a
             c.imag = b
             return c
+<<<<<<< HEAD:numexpr3/tests/test_numexpr.py
 
         a = arange(1e4, dtype='float32' )
         b = (arange(1e4) ** 1e-5).astype('float32')
@@ -348,6 +349,15 @@ class test_evaluate(TestCase):
         x = z.imag
         x = sin(complex64_func(a,b)).real + z.imag
 
+=======
+
+        a = arange(1e4, dtype='float32' )
+        b = (arange(1e4) ** 1e-5).astype('float32')
+        z = ( a + 1j * b ).astype( 'complex64' ) # RAM this is complex128 by default numpy rules
+        x = z.imag
+        x = sin(complex64_func(a,b)).real + z.imag
+
+>>>>>>> fa64361cdee2d2675be75683a3a43c18f8f2a2a7:numexpr3/tests/test_numexpr.py
         # RAM: this check cannot pass because we don't have a function to do this 
         # complex64(a,b) in the function list
         y = evaluate("sin(complex64(a, b)).real + z.imag")
@@ -764,7 +774,7 @@ class test_strings(TestCase):
         msg = "expected NotImplementedError regarding '%s'" % op
         try:
             evaluate(expr, local_dict)
-        except NotImplementedError, nie:
+        except NotImplementedError as nie:
             if "'%s'" % op not in nie.args[0]:
                 self.fail(msg)
         else:
@@ -900,28 +910,6 @@ class test_subprocess(TestCase):
 
         result = qout.get()
         #print result
-
-
-def print_versions():
-    """Print the versions of software that numexpr relies on."""
-    from pkg_resources import parse_version
-    if parse_version(np.__version__) < parse_version(minimum_numpy_version):
-        print("*Warning*: NumPy version is lower than recommended: %s < %s" % \
-              (np.__version__, minimum_numpy_version))
-    print('-=' * 38)
-    print("Numexpr version:   %s" % numexpr.__version__)
-    print("NumPy version:     %s" % np.__version__)
-    print('Python version:    %s' % sys.version)
-    if os.name == 'posix':
-        (sysname, nodename, release, version, machine) = os.uname()
-        print('Platform:          %s-%s' % (sys.platform, machine))
-    print("AMD/Intel CPU?     %s" % numexpr.is_cpu_amd_intel)
-    print("VML available?     %s" % use_vml)
-    if use_vml:
-        print("VML/MKL version:   %s" % numexpr.get_vml_version())
-    print("Number of threads used by default: %d "
-          "(out of %d detected cores)" % (numexpr.nthreads, numexpr.ncores))
-    print('-=' * 38)
 
 
 def test():
