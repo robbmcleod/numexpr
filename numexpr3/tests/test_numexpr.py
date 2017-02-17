@@ -341,7 +341,6 @@ class test_evaluate(TestCase):
             c.real = a
             c.imag = b
             return c
-<<<<<<< HEAD:numexpr3/tests/test_numexpr.py
 
         a = arange(1e4, dtype='float32' )
         b = (arange(1e4) ** 1e-5).astype('float32')
@@ -349,15 +348,6 @@ class test_evaluate(TestCase):
         x = z.imag
         x = sin(complex64_func(a,b)).real + z.imag
 
-=======
-
-        a = arange(1e4, dtype='float32' )
-        b = (arange(1e4) ** 1e-5).astype('float32')
-        z = ( a + 1j * b ).astype( 'complex64' ) # RAM this is complex128 by default numpy rules
-        x = z.imag
-        x = sin(complex64_func(a,b)).real + z.imag
-
->>>>>>> fa64361cdee2d2675be75683a3a43c18f8f2a2a7:numexpr3/tests/test_numexpr.py
         # RAM: this check cannot pass because we don't have a function to do this 
         # complex64(a,b) in the function list
         y = evaluate("sin(complex64(a, b)).real + z.imag")
@@ -972,7 +962,8 @@ def suite():
 
 
 if __name__ == '__main__':
-    print_versions()
-    unittest.main(defaultTest='suite')
+    print( "The NumExpr2 test suite is deprecated and will be replaced shortly." )
+    print( "autotest_GENERATED.py and handtests_ne3.py are the current tests" )
+    #unittest.main(defaultTest='suite')
 #    suite = suite()
 #    unittest.TextTestRunner(verbosity=2).run(suite)
