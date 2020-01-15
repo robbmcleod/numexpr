@@ -39,7 +39,7 @@ install:
 
   # Install Python (from the official .msi of http://python.org) and pip when
   # not already installed.
-  - "powershell ./appveyor/install.ps1"
+  # - "powershell ./appveyor/install.ps1"
 
   # Prepend newly installed Python to the PATH of this build (this cannot be
   # done from inside the powershell script as it would require to restart
@@ -54,7 +54,7 @@ install:
   - "%CMD_IN_ENV% pip install --timeout=60 -r appveyor/requirements.txt"
   - "%CMD_IN_ENV% python setup.py bdist_wheel bdist_wininst"
 
-  # Install the genreated wheel package to test it
+  # Install the generated wheel package to test it
   - "pip install --pre --no-index --find-links dist/ numexpr"
 
 build: false
@@ -64,7 +64,7 @@ test_script:
   # installed library.
   - "mkdir empty_folder"
   - "cd empty_folder"
-  - "python -c \"import sys;import numexpr;sys.exit(0 if numexpr.test().wasSuccessful() else 1)\""
+  - "python -c \"import sys; import numexpr; sys.exit(0 if numexpr.test().wasSuccessful() else 1)\""
   - "cd .."
 
 artifacts:
